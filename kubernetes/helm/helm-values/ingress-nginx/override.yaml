@@ -1,0 +1,9 @@
+controller:
+  service:
+    annotations:
+      service.beta.kubernetes.io/azure-load-balancer-resource-group: "MC_fsa-dzivyf_northeurope"
+      service.beta.kubernetes.io/azure-pip-name: "pip-fsa-dzivyf"
+    externalTrafficPolicy: "Local"
+
+defaultBackend:
+  enabled: true

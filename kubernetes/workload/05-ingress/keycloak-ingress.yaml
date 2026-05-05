@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: keycloak-ingress
+  namespace: app
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx/client_max_body_size: 10m
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - keycloak.74-234-72-21.nip.io
+      secretName: keycloak-tls-cert
+  rules:
+    - host: keycloak.74-234-72-21.nip.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: fsa-keycloak-http
+                port:
+                  number: 80
